@@ -18,17 +18,25 @@ public class ChessManager : MonoBehaviour
 
 	private void UpdateView()
 	{
-		if (currentColor != 0)
-		{
-			if (currentColor == 1 && currentColor != -1)
-			{
-				transform.GetChild(1).GetChild(0).GetComponent<MeshRenderer>().enabled = true; // total 3 layers
-				// Unit_A-1 -> Chess_Black -> Chess_Unit
-			}
-			else if (currentColor == -1 && currentColor != 1)
-			{
-				transform.GetChild(0).GetChild(0).GetComponent<MeshRenderer>().enabled = true;
-			}
-		}
+        for (int i = 0; i < 8; i++)
+        {
+            for (int j = 0; j < 8; j++)
+            {
+                if (DataModel.chessBoard[i, j] == 1)
+                {
+                    Vendor.units[8 * i + 7 - j].transform.GetChild(1).GetChild(0)
+                        .GetComponent<MeshRenderer>().enabled = true;
+                    Vendor.units[8 * i + 7 - j].transform.GetChild(0).GetChild(0)
+                        .GetComponent<MeshRenderer>().enabled = false;
+                }
+                else if (DataModel.chessBoard[i, j] == -1)
+                {
+                    Vendor.units[8 * i + 7 - j].transform.GetChild(0).GetChild(0)
+                        .GetComponent<MeshRenderer>().enabled = true;
+                    Vendor.units[8 * i + 7 - j].transform.GetChild(1).GetChild(0)
+                        .GetComponent<MeshRenderer>().enabled = false;
+                }
+            }
+        }
 	}
 }

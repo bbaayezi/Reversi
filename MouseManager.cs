@@ -16,8 +16,8 @@ public class MouseManager : MonoBehaviour
 	void Start () 
 	{
 		initializer = GameObject.FindObjectOfType<Initializer>();
-		parents = GameObject.FindGameObjectsWithTag("Unit");
-	}
+        parents = GameObject.FindGameObjectsWithTag("Unit");
+    }
 	
 	// Update is called once per frame
 	void Update () 
@@ -49,10 +49,6 @@ public class MouseManager : MonoBehaviour
 			string result = Regex.Match(obj.name, pattern).ToString();
 			int col;
 			int.TryParse(result, out col);
-			
-			// Debug.Log("Col is: " + Regex.Match(obj.name, pattern));
-			
-			Debug.Log(parents[0]);
 
 			// foreach(GameObject _object in parents.OrderByDescending(x => x.name));
 				
