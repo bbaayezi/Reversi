@@ -22,12 +22,22 @@ public class Initializer : MonoBehaviour
 				parentIndex++;
 			}
 		}
-		gameRounds = 1;
+		Initialize();
 	}
 
 	private Vector3 GetCenterOf(int rowNum, int num)
 	{		
 		GameObject obj = GameObject.Find("Board_Positioning").transform.GetChild(rowNum).gameObject;
 		return obj.transform.GetChild(num).GetComponent<Renderer>().bounds.center;
+	}
+
+	private void Initialize()
+	{
+		DataModel.chessBoard[3, 3] = -1;
+        DataModel.chessBoard[3, 4] = 1;
+        DataModel.chessBoard[4, 3] = 1;
+        DataModel.chessBoard[4, 4] = -1;
+
+		gameRounds = 1;
 	}
 }

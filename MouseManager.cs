@@ -44,24 +44,15 @@ public class MouseManager : MonoBehaviour
 		
 		if (Input.GetMouseButtonDown(0))
 		{
-			// Debug.Log("Clicked! gameRound is: " + Initializer.gameRounds);
 			string pattern = @"\d";
 			string result = Regex.Match(obj.name, pattern).ToString();
 			int col;
 			int.TryParse(result, out col);
 
-			// foreach(GameObject _object in parents.OrderByDescending(x => x.name));
-				
-			// parents[0].transform.GetChild(0).GetChild(0).GetComponent<MeshRenderer>().enabled = true;
 			if (OnNextRound != null)
 			{
 				OnNextRound(obj.transform.parent.gameObject.tag, col, Initializer.gameRounds % 2 == 0 ? 1 : -1); // sending the row information
 			}
 		}
-		// Debug.Log(selectedObject.name.Split('_')[1]);
-		
-		// Debug.Log(selectedObject.name.Split('_')[1].Split('-')[1]);
-		
-		
 	}
 }

@@ -18,8 +18,6 @@ public class SelectIndicator : MonoBehaviour
 		{
 			Bounds bounds = mm.selectedObject.GetComponentInChildren<Renderer>().bounds;
 			transform.position = new Vector3 (bounds.center.x, 7.21f, bounds.center.z);
-			// Debug.Log(bounds + ", " + transform.position);
-			
 		}
 	}
 }

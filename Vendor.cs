@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.Linq;
 using System;
 
 public class Vendor : MonoBehaviour 
@@ -11,16 +10,16 @@ public class Vendor : MonoBehaviour
 
 	public static GameObject[] units;
 
+    // used to store the axis of cliked point
 	private int currentRowIndex;
 	private int currentColumnIndex;
+    // color of the next piece, -1 = Black, 1 = White
     private int color;
 	void Start () 
 	{
 		units = GameObject.FindGameObjectsWithTag("Unit");
-        DataModel.chessBoard[3, 3] = -1;
-        DataModel.chessBoard[3, 4] = 1;
-        DataModel.chessBoard[4, 3] = 1;
-        DataModel.chessBoard[4, 4] = -1;
+        
+        // model updated, next update the view
         if (OnModelUpdate != null)
         {
             OnModelUpdate();
@@ -42,13 +41,10 @@ public class Vendor : MonoBehaviour
 		
 		char c = rowName.Split('_')[1][0]; // Row_D, split by '_' and take D
 		int rowIndex = (int) c - 65; // the ASCII code for 'A' is 65, thus covert the character to ASCII and minus by 65
-		// DataModel.chessBoard[rowIndex,column - 1] = color;
 
 		currentRowIndex = rowIndex;
 		currentColumnIndex = column - 1;
         this.color = color;
-		//Debug.Log(currentRowIndex + ", col: " + currentColumnIndex + ", color number: " + color);
-
 
         // TODO: CheckMovement
         // @params: int currentRow, int currentColumn, int currentColor, out int[,] newChessBoard
@@ -59,13 +55,7 @@ public class Vendor : MonoBehaviour
             Initializer.gameRounds--;
         }
 
-
-
-        //if (units[rowIndex * 8 + 8 - column].transform.GetComponent<ChessManager>().currentColor == 0)
-        //{
-        //    units[rowIndex * 8 + 8 - column].transform.GetComponent<ChessManager>().currentColor = color;
         Initializer.gameRounds++;
-        //}
 
         // update event
         if (OnModelUpdate != null)
@@ -81,15 +71,15 @@ public class Vendor : MonoBehaviour
 		newChessBoard = (int[,])DataModel.chessBoard.Clone();
 		int upperBounds;
 		int lowerBounds;
-        // implement the color
-        //newChessBoard[currentRow, currentColumn] = color;
+        // Check if current positon has been occupied
+        if (DataModel.chessBoard[currentRow, currentColumn] != 0) return false;
+
 		// TODO: SearchVertical, SearchHorizontal
 		// @params: int[,] chessBoard, out int upperBounds, out int lowerBounds
 
 		// SearchVertical
 		bool searchVer = SearchVertical(ref newChessBoard, out lowerBounds, out upperBounds);
 		// immediate update
-		//Debug.Log(upperBounds + ", " + lowerBounds);
 		
 		if (searchVer)
         {
@@ -104,7 +94,6 @@ public class Vendor : MonoBehaviour
 		// variable updated
 		// immediately update the chess board
 
-		//Debug.Log(upperBounds + ", " + lowerBounds);
 		if (searchHor)
         {
             for (int i = lowerBounds; i <= upperBounds; i++)
@@ -233,7 +222,7 @@ public class Vendor : MonoBehaviour
                     break;
                 }
             }
-        }catch(Exception e)
+        }catch(IndexOutOfRangeException e)
         {
             
         }
@@ -249,7 +238,7 @@ public class Vendor : MonoBehaviour
                     break;
                 }
             }
-        }catch(Exception e)
+        }catch(IndexOutOfRangeException e)
         {
 
         }
@@ -274,7 +263,6 @@ public class Vendor : MonoBehaviour
         {
 
         }
-
 
         // check southeast
         try
