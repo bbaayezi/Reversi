@@ -143,7 +143,7 @@ public class Vendor : MonoBehaviour
             }
             
         }
-        Debug.Log(lowerBounds);
+
         if (searchVer || searchHor || searchObLeft || searchObRight)
         {
             return true;
@@ -210,7 +210,7 @@ public class Vendor : MonoBehaviour
     private bool SearchObliqueLeft(ref int[,] chessBoard, out int lowerBounds, out int upperBounds)
     {
         lowerBounds = upperBounds = currentRowIndex;
-        // check northeast
+        // check northwest
         try
         {
             for (int i = currentRowIndex, j = currentColumnIndex; i >= 0 && j >= 0; i--, j--)
@@ -226,7 +226,7 @@ public class Vendor : MonoBehaviour
         {
             
         }
-        // check southwest
+        // check southeast
         try
         {
             for (int i = currentRowIndex, j = currentColumnIndex; i < 8 && j < 8; i++, j++)
@@ -247,7 +247,7 @@ public class Vendor : MonoBehaviour
     private bool SearChObliqueRight(ref int[,] chessBoard, out int lowerBounds, out int upperBounds)
     {
         lowerBounds = upperBounds = currentRowIndex;
-        // check northwest
+        // check northeast
         try
         {
             for (int i = currentRowIndex, j = currentColumnIndex; i >= 0 && j < 8; i--, j++)
@@ -264,7 +264,7 @@ public class Vendor : MonoBehaviour
 
         }
 
-        // check southeast
+        // check southwest
         try
         {
             for (int i = currentRowIndex, j = currentColumnIndex; i < 8 && j >= 0; i++, j--)

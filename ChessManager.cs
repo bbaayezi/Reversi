@@ -9,11 +9,13 @@ public class ChessManager : MonoBehaviour
 	private void OnEnable() 
 	{
 		Vendor.OnModelUpdate += UpdateView;
+        GUIEvent.OnRestartUpdate += UpdateView;
 	}
 
 	private void OnDisable()
 	{
 		Vendor.OnModelUpdate -= UpdateView;
+        GUIEvent.OnRestartUpdate -= UpdateView;
 	}
 
 	private void UpdateView()
@@ -33,6 +35,13 @@ public class ChessManager : MonoBehaviour
                 {
                     Vendor.units[8 * i + 7 - j].transform.GetChild(0).GetChild(0)
                         .GetComponent<MeshRenderer>().enabled = true;
+                    Vendor.units[8 * i + 7 - j].transform.GetChild(1).GetChild(0)
+                        .GetComponent<MeshRenderer>().enabled = false;
+                }
+                else
+                {
+                    Vendor.units[8 * i + 7 - j].transform.GetChild(0).GetChild(0)
+                        .GetComponent<MeshRenderer>().enabled = false;
                     Vendor.units[8 * i + 7 - j].transform.GetChild(1).GetChild(0)
                         .GetComponent<MeshRenderer>().enabled = false;
                 }

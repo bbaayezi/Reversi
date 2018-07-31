@@ -31,8 +31,15 @@ public class Initializer : MonoBehaviour
 		return obj.transform.GetChild(num).GetComponent<Renderer>().bounds.center;
 	}
 
-	private void Initialize()
+	public static void Initialize()
 	{
+		for (int i = 0; i < 8; i++)
+		{
+			for (int j = 0; j < 8; j++)
+			{
+				DataModel.chessBoard[i, j] = 0;
+			}
+		}
 		DataModel.chessBoard[3, 3] = -1;
         DataModel.chessBoard[3, 4] = 1;
         DataModel.chessBoard[4, 3] = 1;
